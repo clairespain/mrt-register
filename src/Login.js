@@ -4,37 +4,52 @@ import './App.css';
 const Login = (props) => {
 
     const {
-        email, 
-        setEmail, 
-        password, 
-        setPassword, 
-        handleLogin, 
-        handleSignup, 
-        hasAccount, 
-        setHasAccount, 
-        emailError, 
+        email,
+        setEmail,
+        password,
+        setPassword,
+        handleLogin,
+        handleSignup,
+        hasAccount,
+        setHasAccount,
+        emailError,
         passwordError
     } = props;
 
-    return(
+    return (
         <section className="login">
             <div className="loginContainer">
-                <label>Username</label>
-                <input type="text" autoFocus required value={email} onChange={e => setEmail(e.target.value)} />
-                <p className= "errorMsg">{emailError}</p>
-                <label>Password</label>
-                <input type="password" required value={password} onChange={e => setPassword(e.target.value)}/>
-                <p className= "errorMsg">{passwordError}</p>
                 <div className="btnContainer">
                     {hasAccount ? (
                         <>
-                        <button onClick={handleLogin}>Sign In</button>
-                        <p>Dont have an Account ? <span onClick={() => setHasAccount(!hasAccount)}>Sign Up</span></p>
+                            <h1>Sign In</h1>
+                            <p>New User? <span onClick={() => setHasAccount(!hasAccount)}>Create an Account</span></p>
                         </>
-                    ):(
+                    ) : (
                         <>
-                        <button onClick={handleSignup}>Sign up</button>
-                        <p>Have an Account ? <span onClick={() => setHasAccount(!hasAccount)}>Sign In</span></p>
+                            <h1>Sign Up</h1>
+                            <p>Have an Account? <span onClick={() => setHasAccount(!hasAccount)}>Sign In</span></p>
+                        </>
+                    )}
+                </div>
+                <br />
+                {/* <label>Email</label> */}
+                <input type="text" placeholder="Email" autoFocus required value={email} onChange={e => setEmail(e.target.value)} />
+                <p className="errorMsg">{emailError}</p>
+                <br />
+                {/* <label>Password</label> */}
+                <input type="password" placeholder="Password" required value={password} onChange={e => setPassword(e.target.value)} />
+                <p className="errorMsg">{passwordError}</p>
+                <br />
+                <br />
+                <div className="btnContainer">
+                    {hasAccount ? (
+                        <>
+                            <button onClick={handleLogin}>Sign In</button>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={handleSignup}>Sign up</button>
                         </>
                     )}
                 </div>

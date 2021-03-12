@@ -2,9 +2,10 @@ import React from 'react';
 
 const Purchase = () => {
     return(
-        <div>
-            <h1>You currently have the basic Tier. Would you like to upgrade?</h1>
-            <p>Beautiful code here. Miya please help.</p>
+        <div className="purchase">
+            <h1>Get <span className="hightlight">Go Play!</span></h1>
+            <br />
+            <p>Space for pricing + instructions and stuff</p>
         </div>
     );
 };
