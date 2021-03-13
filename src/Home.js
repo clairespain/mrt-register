@@ -82,6 +82,8 @@ const Home = ({ showPurchase }) => {
             <br />
             <button onClick={() => showPurchase()}>Go Premium</button>
             <br />
+            <button className="alt">Back to the App</button>
+            <br />
             <br />
         </div>
     );
