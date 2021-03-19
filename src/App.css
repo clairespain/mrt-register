@@ -71,6 +71,10 @@ button {
   max-width: 100px;
 }
 
+.goPlay {
+  max-width: 200px;
+}
+
 .login {
   width: 100%;
   min-height: 100vh;

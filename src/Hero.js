@@ -20,7 +20,7 @@ const Hero = ({ handleLogout }) => {
         <section className="hero">
             <div className="header">
                 <nav>
-                    <img src={logo} alt="Montana Repertory Theatre Logo Landscape" onClick={() => setContent("home")} />
+                    <img src={logo} alt="Go Play Logo" onClick={() => setContent("home")} />
                     <div>
                         <FontAwesomeIcon icon={faUser} color="#CC8A05" size="lg" onClick={() => setContent("account")} />
                     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './assets/1_MontanaRep_PrimaryLogo_GreenStacked.png';
+import goPlayLogo from './assets/GoPlay_LogoGreen-03.png'
 
 
 const Home = ({ showPurchase }) => {
@@ -13,6 +14,7 @@ const Home = ({ showPurchase }) => {
             <strong className="highlight link" onClick={() => showPurchase()}>Go Play!</strong>
                 <br />
             &#8212; An interactive play experience from all accross your community!
+            <img src={goPlayLogo} alt="Go Play Logo" className="goPlay" />
             <br />
             Explore the town and take Montana Rep with you.
             Just like geocaching, find local plays and experience them on-site!
