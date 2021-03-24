@@ -9,7 +9,19 @@ import firebase from 'firebase';
   messagingSenderId: "453795476842",
   appId: "1:453795476842:web:a602151f9b0e311aeae113"
   };
+
+    if (!firebaseConfig.apiKey) throw new Error("Missing firebase credential: apiKey");
+    if (!firebaseConfig.authDomain) throw new Error("Missing firebase credential: authDomain");
+    if (!firebaseConfig.databaseURL) throw new Error("Missing firebase credential: databaseURL");
+    if (!firebaseConfig.projectId) throw new Error("Missing firebase credential: projectId");
+    if (!firebaseConfig.storageBucket) throw new Error("Missing firebase credential: storageBucket");
+    if (!firebaseConfig.messagingSenderId) throw new Error("Missing firebase credential: messagingSenderId");
+    if (!firebaseConfig.appId) throw new Error("Missing firebase credential: appId");
+
   // Initialize Firebase
   const fire = firebase.initializeApp(firebaseConfig);
 
+  const db = firebase.firestore();
+
   export default firebase;
+  export {db, firebase};

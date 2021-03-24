@@ -1,16 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import fire from './fire';
+import { db, firebase } from './fire';
 import Login from './Login';
 import Hero from './Hero';
 import './App.css';
 
 const App = () => {
+  const [username, setUsername] = useState('');
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState(false);
+  const [subscribed, setSubscribed] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+
   
   const clearInputs = () => {
     setEmail('');
@@ -58,6 +63,16 @@ const App = () => {
         default: 
       }
     });
+    
+    db.collection("users").add({
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      name: username,
+      email: email,
+      isAdmin: false,
+      isPremium: false,
+      // isSubscribed: subscribed,
+      // birthdate:
+    });
   };
 
   const handleLogout = () => {
@@ -89,6 +104,8 @@ const App = () => {
         />
       ) : (
       <Login 
+        username={username}
+        setUsername={setUsername}
         email={email} 
         setEmail={setEmail} 
         password={password} 
@@ -99,6 +116,10 @@ const App = () => {
         setHasAccount={setHasAccount} 
         emailError={emailError} 
         passwordError={passwordError}
+        subscribed={subscribed}
+        setSubscribed={setSubscribed}
+        birthdate={birthdate}
+        setBirthdate={setBirthdate}
       />
       )}
     </div>

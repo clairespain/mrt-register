@@ -2,6 +2,7 @@ import React from 'react';
 import goPlayLogo from './assets/GoPlay_LogoGreen-03.png'
 
 const Purchase = () => {
+ 
     return (
         <div className="purchase">
             <img src={goPlayLogo} alt="Montana Repertory Theatre Logo Stacked" className="goPlay" />

@@ -7,6 +7,7 @@ const createdAt = "Mar 12, 2021 16:17:00";
 const Account = ({ handleLogout, showPurchase }) => {
     //dummy premium const
     const [isPremium, setIsPremium] = useState(false);
+    
 
     function timeSince(time) {
 
