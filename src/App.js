@@ -70,7 +70,7 @@ const App = () => {
       email: email,
       isAdmin: false,
       isPremium: false,
-      // isSubscribed: subscribed,
+      isSubscribed: subscribed,
       // birthdate:
     });
   };
