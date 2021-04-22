@@ -71,7 +71,8 @@ const App = () => {
       isAdmin: false,
       isPremium: false,
       isSubscribed: subscribed,
-      // birthdate:
+      isSponsorBasic: false,
+      isSponsorPremium: false,
     });
   };
 

@@ -16,24 +16,15 @@ const Login = (props) => {
         setHasAccount,
         emailError,
         passwordError,
-        subscribed,
+        subscribed = true,
         setSubscribed,
-        birthdate,
-        setBirthdate
     } = props;
 
-    const [day, setDay] = useState("");
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
 
-    // setDay + setMonth + setYear = setBirthdate;
-
-
-    // function combineBirthday() {
-    //    month+"/"+day+"/"+year 
-    //     return birthdate;
-    // }
-
+    const [firstSubscribed, setFirstSubscribed] = useState(true);
+    const handleChecked = ({target}) => {
+        setSubscribed(target.checked);
+    }
     return (
         <section className="login">
             <div className="loginContainer">
@@ -61,23 +52,24 @@ const Login = (props) => {
                              <p className="errorMsg">{emailError}</p>
                             <input className="textInput" type="password" placeholder="Password" required value={password} onChange={e => setPassword(e.target.value)} />
                             <p className="errorMsg">{passwordError}</p>
-                            <p styles={{float: "left"}}>Please Enter Your Birthday</p>
+                            
+                            {/* <p styles={{float: "left"}}>Please Enter Your Birthday</p>
                                 <div className="birthday_div">
                                 <input className="birthday_inputs_left" value={day} onChange={e => setDay(e.target.value)} type="number" placeholder="DD"/>
                                 <input className="birthday_inputs_left" value={month} onChange={e => setMonth(e.tartget.value)} type="number" placeholder="MM"/>
                                 <input className="birthday_inputs_right" value={year} onChange={e => setYear(e.target.value)} type="number" placeholder="YYYY"/>
                                 </div>
-                            <br></br>
+                            <br></br> */}
                             
                             <div class="control-group">
                             <label class="control control-checkbox">
-                                  Subscribe to our monthly newsletters
-                                    <input  defaultChecked value={true} type="checkbox" ref={setSubscribed}/>
+                                  Subscribe to our Newsletter
+                                    <input defaultChecked value={subscribed} type="checkbox" onChange={handleChecked} />
                                 <div class="control_indicator"></div>
                             </label>
                             </div>
-                                <p>By signing up you agree to our
-                                    <br></br><span>Terms & Conditions</span></p>                 
+                                <p>By signing up you are over the age of 13 and agree to our
+                                    <span>Terms & Conditions</span></p>                 
                         </>
                     )}
                 </div>

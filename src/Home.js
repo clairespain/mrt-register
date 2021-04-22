@@ -6,6 +6,7 @@ import goPlayLogo from './assets/GoPlay_LogoGreen-03.png'
 const Home = ({ showPurchase }) => {
     return (
         <div className="home">
+            <p>{process.env.REACT_APP_AUTH_DOMAIN}</p>
             <img src={logo} alt="Montana Repertory Theatre Logo Stacked" className="logo" />
             <br />
             <h1>Why <span>Premium?</span></h1>
