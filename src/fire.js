@@ -17,7 +17,8 @@ import "firebase/auth";
   projectId: "montana-rep-app-testing",
   storageBucket: "montana-rep-app-testing.appspot.com",
   messagingSenderId: "556304158511",
-  appId: "1:556304158511:web:334f76a9446ecbe219dbda"
+  appId: "1:556304158511:web:334f76a9446ecbe219dbda",
+  stripeApiKey: "pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ"
   };
 
     if (!firebaseConfig.apiKey) throw new Error("Missing firebase credential: apiKey");

@@ -68,7 +68,7 @@ const Login = (props) => {
                                 <div class="control_indicator"></div>
                             </label>
                             </div>
-                                <p>By signing up you are over the age of 13 and agree to our
+                                <p>By signing up you agree that you are over the age of 13 and agree to our
                                     <span>Terms & Conditions</span></p>                 
                         </>
                     )}
