@@ -23,7 +23,7 @@ export default function CheckoutForm() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({items: [{ id: "xl-tshirt" }]})
+        body: JSON.stringify({ items: [{ id: "xl-tshirt" }] })
       })
       .then(res => {
         return res.json();
@@ -59,24 +59,25 @@ export default function CheckoutForm() {
   };
 
   const handleSubmit = async ev => {
-    ev.preventDefault();
-    setProcessing(true);
+    // ev.preventDefault();
+    // setProcessing(true);
 
-    const payload = await stripe.confirmCardPayment(clientSecret, {
-      receipt_email: email,
-      payment_method: {
-        card: elements.getElement(CardElement)
-      }
-    });
+    // const payload = await stripe.confirmCardPayment(clientSecret, {
+    //   receipt_email: email,
+    //   payment_method: {
+    //     card: elements.getElement(CardElement)
+    //   }
+    // });
 
-    if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
-      setProcessing(false);
-    } else {
-      setError(null);
-      setProcessing(false);
-      setSucceeded(true);
-    }
+    // if (payload.error) {
+    //   setError(`Payment failed ${payload.error.message}`);
+    //   setProcessing(false);
+    // } else {
+    //   setError(null);
+    //   setProcessing(false);
+    //   setSucceeded(true);
+    // }
+    // console.log("Clicked!")
   };
 
   return (

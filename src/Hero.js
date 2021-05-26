@@ -35,7 +35,7 @@ const Hero = ({ handleLogout }) => {
                 )}
             </div>
 
-            <div className="content">
+            {/* <div className="content">
 
                 {(function () {
                     if (content === 'home') {
@@ -52,7 +52,7 @@ const Hero = ({ handleLogout }) => {
                     }
                 })()}
 
-            </div>
+            </div> */}
         </section>
     );
 };

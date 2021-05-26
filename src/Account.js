@@ -1,4 +1,7 @@
 import React, { useState, } from 'react';
+import { useAuth } from "./services/AuthContext"
+import { Link, useHistory } from "react-router-dom"
+
 const name = 'Name';
 const email = "Email";
 const accountType = "Basic";
@@ -7,7 +10,20 @@ const createdAt = "Mar 12, 2021 16:17:00";
 const Account = ({ handleLogout, showPurchase }) => {
     //dummy premium const
     const [isPremium, setIsPremium] = useState(false);
-    
+    const [error, setError] = useState("")
+        const { currentUser, logout } = useAuth()
+        const history = useHistory()
+
+        async function handleLogout() {
+            setError("")
+
+            try {
+            await logout()
+            history.push("/login")
+            } catch {
+            setError("Failed to log out")
+            }
+        }
 
     function timeSince(time) {
 

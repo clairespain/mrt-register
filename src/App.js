@@ -1,130 +1,57 @@
 import React, {useState, useEffect} from 'react';
-import fire from './fire';
-import { db, firebase } from './fire';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from 'react-router-dom';
+import { AuthProvider} from './services/AuthContext';
+import PrivateRoute from "./services/PrivateRoute"
+import fire from './services/firebase';
+import { db, firebase } from './services/firebase';
 import Login from './Login';
 import Hero from './Hero';
+import Home from './Home';
 import './App.css';
+import Nav from './Nav';
+import About from './About';
+import Store from './Store';
+import PrivacyPolicy from './PrivacyPolicy';
+import Account from './Account';
+import Terms from './Terms';
+
+
+import ForgotPassword from "./ForgotPassword"
+import UpdateProfile from "./UpdateProfile"
+
+import Signup from "./Login"
+
+
+
 
 const App = () => {
-  const [username, setUsername] = useState('');
-  const [user, setUser] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [hasAccount, setHasAccount] = useState(false);
-  const [subscribed, setSubscribed] = useState('');
-  const [birthdate, setBirthdate] = useState('');
-
-  
-  const clearInputs = () => {
-    setEmail('');
-    setPassword('');
-  }
-  const clearErrors = () => {
-    setEmailError('');
-    setPasswordError('');
-  }
-
-  const handleLogin = () => {
-    clearErrors();
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch(err => {
-        switch(err.code){
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
-              setEmailError(err.message);
-              break;
-              case "auth/wrong-password":
-              setPasswordError(err.message);
-              break;
-              default:
-        }
-      });
-  };
-
-  const handleSignup = () => {
-    clearErrors();
-    fire
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .catch(err => {
-      switch(err.code){
-        case "auth/email-already-in-use":
-        case "auth/invalid-email":
-            setEmailError(err.message);
-            break;
-          case "auth/weak-password":
-            setPasswordError(err.message);
-            break;
-        default: 
-      }
-    });
-    
-    db.collection("users").add({
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      name: username,
-      email: email,
-      isAdmin: false,
-      isPremium: false,
-      isSubscribed: subscribed,
-      isSponsorBasic: false,
-      isSponsorPremium: false,
-    });
-  };
-
-  const handleLogout = () => {
-    fire.auth().signOut();
-  };
-
-  const authListener = () => {
-    fire.auth().onAuthStateChanged(user => {
-      if(user) {
-        clearInputs();
-        setUser(user);
-      } else {
-        setUser("");
-      }
-    });
-  };
-
-  // React Hook useEffect has missing dependency is a warning error >>
-  useEffect(() => {
-    authListener();
-  }, []);
-
+  // const [username, setUsername] = useState('');
+  // const [user, setUser] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [emailError, setEmailError] = useState('');
+  // const [passwordError, setPasswordError] = useState('');
+  // const [hasAccount, setHasAccount] = useState(false);
+  // const [subscribed, setSubscribed] = useState('');
+  // const [birthdate, setBirthdate] = useState('');
+ 
   return (
-    <div className='App'>
-      
-      {user ? (
-        <Hero 
-        handleLogout= {handleLogout} 
-        />
-      ) : (
-      <Login 
-        username={username}
-        setUsername={setUsername}
-        email={email} 
-        setEmail={setEmail} 
-        password={password} 
-        setPassword={setPassword} 
-        handleLogin={handleLogin} 
-        handleSignup={handleSignup} 
-        hasAccount={hasAccount} 
-        setHasAccount={setHasAccount} 
-        emailError={emailError} 
-        passwordError={passwordError}
-        subscribed={subscribed}
-        setSubscribed={setSubscribed}
-        birthdate={birthdate}
-        setBirthdate={setBirthdate}
-      />
-      )}
-    </div>
-  );
-};
+    <div>
+    <Router>
+      <AuthProvider>
+     <div className='App'>
+        
+        <Switch>
+            <Route path="/login" component={Login} />
+            <PrivateRoute exact path="/" component={Home}/>
+            <Route path="/terms-and-conditions" component={Terms} />
+            <Route path="/forgot-password" componenet={ForgotPassword} />
+        </Switch>
+      </div>    
+      </AuthProvider>
+    </Router>
+    </div>  
+  )
+}
 
 export default App;
