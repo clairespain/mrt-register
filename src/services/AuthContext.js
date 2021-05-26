@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
       }
     
     
-      console.log(user);
+      //console.log(user);
         
     //     db.collection("users").add({
     //       createdAt: firebase.firestore.FieldValue.serverTimestamp(),

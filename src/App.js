@@ -9,6 +9,7 @@ import Hero from './Hero';
 import Home from './Home';
 import './App.css';
 import Nav from './Nav';
+import Footer from './Footer'
 import About from './About';
 import Store from './Store';
 import PrivacyPolicy from './PrivacyPolicy';
@@ -51,6 +52,7 @@ const App = () => {
             <Route path="/about" componenet={About} />
         </Switch>
       </div>    
+      <Footer/>
       </AuthProvider>
     </Router>
     </div>  

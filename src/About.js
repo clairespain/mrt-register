@@ -32,9 +32,7 @@ export default function About() {
             <h2><span className="highlight">Premium</span> Features</h2>
             <br />
             <p>
-                <span className="highlight">&#9733;</span> Go Play! Community Map
-                <br />
-                <span className="highlight">&#9733;</span> Exclusive Audio and Video*
+                <span className="highlight">&#9733;</span> Exclusive Audio and Video
                 <br />
                 <span className="highlight">&#9733;</span> An Extended Reality Experience
             </p>
@@ -73,16 +71,16 @@ export default function About() {
                 </tr>
                 <tr>
                     <td>Community Map</td>
+                    <td><span>&#x2714;</span></td>
+                    <td><span>&#x2714;</span></td>
+                </tr>
+                <tr>
+                    <td>GoPlay! Audio Content</td>
                     <td></td>
                     <td><span className="highlight">&#x2714;</span></td>
                 </tr>
                 <tr>
-                    <td>Audio Content</td>
-                    <td></td>
-                    <td><span className="highlight">&#x2714;</span></td>
-                </tr>
-                <tr>
-                    <td>Video Content</td>
+                    <td>GoPlay! Video Content</td>
                     <td></td>
                     <td><span className="highlight">&#x2714;</span></td>
                 </tr>

@@ -1,7 +1,7 @@
 import React, { useState, } from 'react';
-import Home from './Home';
-import Account from './Account';
-import Purchase from './Purchase';
+// import Home from './Home';
+// import Account from './Account';
+// import Purchase from './Purchase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, } from '@fortawesome/free-solid-svg-icons'
 //replace with Go Play! logo when available

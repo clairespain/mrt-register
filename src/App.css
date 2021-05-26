@@ -56,15 +56,21 @@ nav {
   min-height: 10vh;
   background: rgb(86, 87, 86);
   color: white;
+  text-decoration: none;
 }
 
+li {
+  text-decoration: none;
+}
 
 .nav-links {
   width: 40%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   list-style: none;
+  text-align: center;
+  text-decoration: none;
 }
 
 .bold {
@@ -77,6 +83,7 @@ nav {
 
 .link {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .center {
@@ -246,6 +253,10 @@ nav {
 
 }
 
+.footer {
+  background-color: #747A21;
+}
+
 .home {
   background: #fff;
   width: 100%;
@@ -270,6 +281,43 @@ nav {
   align-items: center;
   justify-content: flex-start;
   margin: auto;
+}
+
+.page-container-text {
+  width: 100%;
+  max-width: 1000px;
+  padding: 20px;
+  box-shadow: 0 25px 10px -30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: auto;
+  gap: 12px;
+
+}
+
+.page-container-text li{
+  width: 100%;
+  max-width: 1000px;
+  padding-top: 20px;
+  text-align: left;
+  margin: auto;
+  gap: 12px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .home p {
@@ -628,6 +676,19 @@ td {
 @media only screen and (max-width: 600px) {
   form {
     width: 80vw;
+  }
+
+  .nav-links{
+    width: 80%;
+    min-height: 100px;
+    line-height: 27px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+    text-decoration: none;
   }
 }
 
