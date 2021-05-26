@@ -11,6 +11,7 @@ import About from './About';
 import Store from './Store';
 import PrivacyPolicy from './PrivacyPolicy';
 import Account from './Account';
+import Login from './Login';
 
 export default function Home() {
     const [error, setError] = useState("")
@@ -32,13 +33,14 @@ export default function Home() {
        
         <div>
             <Router>
-             <Nav/>
+             
              <div>   
              <Switch>
                <Route path="/about" component={About}><About /></Route>
                 <Route path="/store" component={Store}><Store /></Route>
                 <Route path="/privacy-policy" component={PrivacyPolicy}><PrivacyPolicy /></Route>
                 <Route path="/account" component={Account}><Account/></Route>
+                <Route path="/login" component={Login}><Login/></Route>
                 <Route path="/"><About/></Route>
             </Switch>
             

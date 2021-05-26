@@ -40,12 +40,14 @@ const App = () => {
     <Router>
       <AuthProvider>
      <div className='App'>
-        
+     <Nav/>
         <Switch>
             <Route path="/login" component={Login} />
             <PrivateRoute exact path="/" component={Home}/>
             <Route path="/terms-and-conditions" component={Terms} />
-            <Route path="/forgot-password" componenet={ForgotPassword} />
+            <Route path="/forgot-password" component={ForgotPassword} />
+            <Route path="/privacy-policy" component={PrivacyPolicy}/>
+            <Route path="/account" component={Account} />
         </Switch>
       </div>    
       </AuthProvider>
