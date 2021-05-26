@@ -43,11 +43,12 @@ const App = () => {
      <Nav/>
         <Switch>
             <Route path="/login" component={Login} />
-            <PrivateRoute exact path="/" component={Home}/>
+            <Route exact path="/" component={Home}/>
             <Route path="/terms-and-conditions" component={Terms} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/privacy-policy" component={PrivacyPolicy}/>
             <Route path="/account" component={Account} />
+            <Route path="/about" componenet={About} />
         </Switch>
       </div>    
       </AuthProvider>
