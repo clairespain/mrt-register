@@ -15,7 +15,7 @@ import Store from './Store';
 import PrivacyPolicy from './PrivacyPolicy';
 import Account from './Account';
 import Terms from './Terms';
-
+import Support from './Support';
 
 import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile"
@@ -48,8 +48,10 @@ const App = () => {
             <Route path="/terms-and-conditions" component={Terms} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/privacy-policy" component={PrivacyPolicy}/>
+            <Route path="/store" component={Store}/>
             <Route path="/account" component={Account} />
-            <Route path="/about" componenet={About} />
+            <Route path="/about" component={About} />
+            <Route path='/support' component={Support}/>
         </Switch>
       </div>    
       <Footer/>

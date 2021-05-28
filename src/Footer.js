@@ -17,6 +17,7 @@ export default function Footer() {
                         {/* <Link style={navStyle} to='/store'><li>Store</li></Link> */}
                         <Link style={navStyle} to='/privacy-policy'><li>Privacy Policy</li></Link>
                         <Link style={navStyle} to='/terms-and-conditions'><li>Terms and Conditions </li></Link>
+                        <Link style={navStyle} to='/support'><li>Support</li></Link>
 
                     </ul>
 
