@@ -16,6 +16,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Account from './Account';
 import Terms from './Terms';
 import Support from './Support';
+import TempCheckout from './TempCheckout';
 
 import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile"
@@ -48,10 +49,11 @@ const App = () => {
             <Route path="/terms-and-conditions" component={Terms} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/privacy-policy" component={PrivacyPolicy}/>
-            <Route path="/store" component={Store}/>
-            <Route path="/account" component={Account} />
+            <PrivateRoute path="/store" component={Store}/>
+            <PrivateRoute path="/account" component={Account} />
             <Route path="/about" component={About} />
             <Route path='/support' component={Support}/>
+            <Route path='/checkout' component={TempCheckout}/>
         </Switch>
       </div>    
       <Footer/>

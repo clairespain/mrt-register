@@ -11,6 +11,8 @@ import './App.css';
 import PaymentTerminal from './PaymentTerminal'
 import CheckoutForm from './CheckoutForm'
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import TempCheckout from './TempCheckout';
+import { Link, useHistory } from "react-router-dom"
 
 // const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout');
 //  const stripePromise = loadStripe('pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ');
@@ -22,26 +24,6 @@ import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
 
 export default function Store() {
-
-        const charge_amount = 500;
-        const charge_currency = 'usd';
-
-
-    async function charge(token, amount, currency) {
-        const res = await fetch(FIREBASE_FUNCTION, {
-            method: 'POST',
-            body: JSON.stringify({
-                token,
-                charge: {
-                    amount,
-                    currency,
-                },
-            }),
-        });
-        const data = await res.json();
-        data.body = JSON.parse(data.body);
-        return data;
-    }
 
     return (
         <div className="page-container">
@@ -81,7 +63,10 @@ export default function Store() {
                     amount={15 * 100}/>
                 </Elements> */}
                 
-                <Button onClick={charge}>Do Something</Button>
+                {/* <Button onClick=}>Do Something</Button> */}
+
+                {/* <Link to="/TempCheckout"><Button>Checkout</Button></Link> */}
+                <TempCheckout/>
 
             </Card.Body>
             </Card>
