@@ -1,24 +1,48 @@
-import React from 'react';
+import React, {useEffect, use} from 'react';
 import { Form, Button, Card, Alert, ListGroup, ListGroupItem, } from "react-bootstrap"
 import {Elements} from '@stripe/react-stripe-js'
+import elements from 'react-stripe-elements'
 import { loadStripe} from '@stripe/stripe-js'
 import firebase from './services/firebase'
-import {stripe} from "stripe"
+import Stripe from "stripe"
 import GoPlayLogo from "./assets/goplay.png";
 import StripeCheckout from 'react-stripe-checkout'
 import './App.css';
 import PaymentTerminal from './PaymentTerminal'
 import CheckoutForm from './CheckoutForm'
+import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
-const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout');
- const stripePromise = loadStripe('pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ');
+// const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout');
+//  const stripePromise = loadStripe('pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ');
+
+ const STRIPE_PUBLIC_KEY = 'pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ'; // TODO: PUT YOUR STRIPE PUBLISHABLE KEY HERE
+
+ const FIREBASE_FUNCTION = 'https://us-central1-montana-rep-app.cloudfunctions.net/charge'; // TODO: PUT YOUR FIREBASE FUNCTIONS URL HERE
+
+
 
 export default function Store() {
 
-    function handleToken(token, addresses) {
-        console.log({ token, addresses})
+        const charge_amount = 500;
+        const charge_currency = 'usd';
 
+
+    async function charge(token, amount, currency) {
+        const res = await fetch(FIREBASE_FUNCTION, {
+            method: 'POST',
+            body: JSON.stringify({
+                token,
+                charge: {
+                    amount,
+                    currency,
+                },
+            }),
+        });
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
     }
+
     return (
         <div className="page-container">
             <h1>Store</h1>
@@ -52,16 +76,17 @@ export default function Store() {
                 /> */}
 
                 {/* <PaymentTerminal/> */}
-
-                <Elements stripe={stripePromise}>
-                    <CheckoutForm 
+                {/* <Elements>
+                <CheckoutForm 
                     amount={15 * 100}/>
-                </Elements>
+                </Elements> */}
+                
+                <Button onClick={charge}>Do Something</Button>
 
             </Card.Body>
             </Card>
-            <br/>
-            <br/>
+          
+
         </div>
     );
 }

@@ -1,113 +1,87 @@
-import React, { useState, useEffect } from "react";
-import {
-  CardElement,
-  useStripe,
-  useElements
-} from "@stripe/react-stripe-js";
+import React, { useEffect, useState } from 'react';
+import {CardElement, injectStripe}     from 'react-stripe-elements';
+// import firebase, { environment }       from '../Functions/Firebase';
+import { firebase } from './services/firebase';
 
-export default function CheckoutForm() {
-  const [succeeded, setSucceeded] = useState(false);
-  const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState('');
-  const [disabled, setDisabled] = useState(true);
-  const [clientSecret, setClientSecret] = useState('');
-  const stripe = useStripe();
-  const elements = useElements();
+const stripeApiKey = 'pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ';
 
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    window
-      .fetch("/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({items: [{ id: "xl-tshirt" }]})
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        setClientSecret(data.clientSecret);
-      });
-  }, []);
-
-  const cardStyle = {
-    style: {
-      base: {
-        color: "#32325d",
-        fontFamily: 'Arial, sans-serif',
-        fontSmoothing: "antialiased",
-        fontSize: "16px",
-        "::placeholder": {
-          color: "#32325d"
+const CheckoutForm = ({stripe}) => {
+    
+    const [customer, setCustomer]  = useState(null);
+    const [payment, setPayment]    = useState(false);
+    
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Reading customer's info from Firebase
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    useEffect( () => {
+        
+        firebase.database().ref('users').on('value', snapshot => {
+            
+            if(snapshot.val()){
+                
+                setCustomer(snapshot.val());
+                
+            }
+            
+        });
+        
+    }, []);
+    
+    const submit = async (ev) => {
+    
+        let fetchURL = 'firebase_function_changePremium_URL';
+        
+        let {token}  = await stripe.createToken({email: customer.email});
+        
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Sends token to Firebase server
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        let response = await fetch(fetchURL, {
+            
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                stripeApiKey: stripeApiKey,
+                stripeToken: token.id, 
+            })
+            
+        });
+        
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Writes in the database that the customer is a new member
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        if(response.ok) {
+            
+            firebase.database().ref('users/CDPSgwPobxH4sNd1NbWA/isPremium').transaction(value => true);
+            
+            setPayment('success');
+            
         }
-      },
-      invalid: {
-        color: "#fa755a",
-        iconColor: "#fa755a"
-      }
     }
-  };
-
-  const handleChange = async (event) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
-    setDisabled(event.empty);
-    setError(event.error ? event.error.message : "");
-  };
-
-  const handleSubmit = async ev => {
-    ev.preventDefault();
-    setProcessing(true);
-
-    const payload = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement)
-      }
-    });
-
-    if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
-      setProcessing(false);
-    } else {
-      setError(null);
-      setProcessing(false);
-      setSucceeded(true);
-    }
-  };
-
-  return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-      <button
-        disabled={processing || disabled || succeeded}
-        id="submit"
-      >
-        <span id="button-text">
-          {processing ? (
-            <div className="spinner" id="spinner"></div>
-          ) : (
-            "Pay now"
-          )}
-        </span>
-      </button>
-      {/* Show any error that happens when processing the payment */}
-      {error && (
-        <div className="card-error" role="alert">
-          {error}
-        </div>
-      )}
-      {/* Show a success message upon completion */}
-      <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a
-          href={`https://dashboard.stripe.com/test/payments`}
-        >
-          {" "}
-          Stripe dashboard.
-        </a> Refresh the page to pay again.
-      </p>
-    </form>
-  );
+    
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Displays form to fill in with card details
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    return (
+      <div className = 'Checkout'>
+        { payment !== 'success'
+        ? <div className = 'Modal-Wrap'>
+                <h2>Welcome to GoPlay!</h2>
+                <p>You'll get charged 50 $ per month and you'll be a member.</p>
+                <CardElement hidePostalCode = {true}/>
+                <div className = 'Total'>
+                    {/* <button onClick = {hide}>Cancel</button> */}
+                    <button onClick = {submit}>Pay</button>   
+                </div>
+          </div>
+        : <div className = 'Modal-Wrap Succeed'>
+                <h2>Thanks!</h2>
+                <p>Payment succesfully done!</p>
+          </div> 
+        }
+      </div>
+    );
+    
 }
+
+export default injectStripe(CheckoutForm);
