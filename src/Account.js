@@ -82,10 +82,11 @@ const Account = ({ handleLogout, showPurchase }) => {
 
     return (
         <div className="account">
+            <br /><br />
             <h1>Hi, {name}!</h1>
             <br />
             <p><span className="bold">Email:</span> &nbsp; {email}</p>
-            <p><span className="bold">Membership:</span> &nbsp; {accountType} {!isPremium ? (<span className="highlight link" onClick={() => showPurchase()}>&nbsp; Upgrade</span>) : (<span className="highlight">&#9733;</span>)}</p>
+            <p><span className="bold">Membership:</span> &nbsp; {accountType} {!isPremium ? (<Link to='/store'><span className="highlight link">&nbsp;Upgrade</span></Link>) : (<span className="highlight">&#9733;</span>)}</p>
             <p><span className="bold">Account Created:</span> &nbsp; {timeSince(createdAt)}</p>
             <br />
             <button onClick={handleLogout}>Logout</button>

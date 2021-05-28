@@ -6,7 +6,7 @@ import { loadStripe} from '@stripe/stripe-js'
 import firebase from './services/firebase'
 import Stripe from "stripe"
 import GoPlayLogo from "./assets/goplay.png";
-import StripeCheckout from 'react-stripe-checkout'
+//import StripeCheckout from 'react-stripe-checkout'
 import './App.css';
 import PaymentTerminal from './PaymentTerminal'
 import CheckoutForm from './CheckoutForm'
@@ -27,6 +27,8 @@ export default function Store() {
 
     return (
         <div className="page-container">
+            <br/>
+            <br/>
             <h1>Store</h1>
             <br/>
             <br/>

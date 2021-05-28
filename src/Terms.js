@@ -4,6 +4,7 @@ import './App.css'
 export default function Terms() {
     return (
         <div className="page-container-text">
+            <br /><br />
             <h1>Terms and Conditions</h1>
             <p>Last updated: April 05, 2021</p>
             <p>Please read these terms and conditions carefully before using Our Service.</p>
