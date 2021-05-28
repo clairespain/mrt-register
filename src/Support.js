@@ -4,6 +4,7 @@ import './App.css'
 export default function Support() {
     return (
         <div className="page-container-text">
+            <br /><br />
             <h1>Support Page</h1>
             <p> If you have any questions, You can contact us:</p>
 
