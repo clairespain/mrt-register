@@ -1,29 +1,29 @@
 import React, {useEffect, use} from 'react';
 import { Form, Button, Card, Alert, ListGroup, ListGroupItem, } from "react-bootstrap"
-import {Elements} from '@stripe/react-stripe-js'
-import elements from 'react-stripe-elements'
-import { loadStripe} from '@stripe/stripe-js'
-import firebase from './services/firebase'
+import { loadStripe } from '@stripe/stripe-js'
 import Stripe from "stripe"
 import GoPlayLogo from "./assets/goplay.png";
-import StripeCheckout from 'react-stripe-checkout'
-import './App.css';
-import PaymentTerminal from './PaymentTerminal'
-import CheckoutForm from './CheckoutForm'
-import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
-import TempCheckout from './TempCheckout';
-import { Link, useHistory } from "react-router-dom"
-
-// const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout');
-//  const stripePromise = loadStripe('pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ');
-
- const STRIPE_PUBLIC_KEY = 'pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ'; // TODO: PUT YOUR STRIPE PUBLISHABLE KEY HERE
-
- const FIREBASE_FUNCTION = 'https://us-central1-montana-rep-app.cloudfunctions.net/charge'; // TODO: PUT YOUR FIREBASE FUNCTIONS URL HERE
-
-
+import firebase from './services/firebase'
+// import function from '.'
+ const stripe = Stripe("pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ");
 
 export default function Store() {
+    const [status, setStatus] = React.useState("ready");
+
+  if (status === "success") {
+    return <div>Congrats on your empanadas!</div>;
+  }
+
+  const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout')
+
+  const handleClick = async (event) => {
+        createStripeCheckout()
+            .then(response => {
+                const sessionId = response.data.id
+                stripe.redirectToCheckout({sessionID: sessionId})
+            })
+    }
+
 
     return (
         <div className="page-container">
@@ -43,30 +43,17 @@ export default function Store() {
             </ListGroup>
             <Card.Body>
                 <br/>
-                {/* <Button onClick={() => console.log("click") 
-
-                    createStripeCheckout()
-                        .then(response => {
-                            const sessionId=response.data.id
-                            stripe.redirectToCheckout({ sessionsId: sessionId})
-                }>Buy Content</Button> */}
-                {/* <StripeCheckout
-                    stripeKey="pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ"
-                    token={handleToken}
-                    amount={15 * 100}
-                    name={"Phantom Bride"}
-                /> */}
-
-                {/* <PaymentTerminal/> */}
-                {/* <Elements>
-                <CheckoutForm 
-                    amount={15 * 100}/>
-                </Elements> */}
+                {/* <Elements stripe={stripePromise}>
+                    <CheckoutForm
+                        success={() => {
+                        setStatus("success");
+                        }}
+                    />
+                    </Elements> */}
                 
-                {/* <Button onClick=}>Do Something</Button> */}
-
-                {/* <Link to="/TempCheckout"><Button>Checkout</Button></Link> */}
-                <TempCheckout/>
+                <button role="link" onClick={handleClick}>
+                    Checkout
+                </button>
 
             </Card.Body>
             </Card>
@@ -74,5 +61,5 @@ export default function Store() {
 
         </div>
     );
-}
+};
 

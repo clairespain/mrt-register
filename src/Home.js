@@ -13,7 +13,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Account from './Account';
 import Login from './Login';
 import Support from './Support';
-import TempCheckout from './TempCheckout';
+
 
 export default function Home() {
     const [error, setError] = useState("")
@@ -45,7 +45,7 @@ export default function Home() {
                 <Route path="/about" component={About}><About /></Route>
                 <Route path="/login" component={Login}><Login/></Route>
                 <Route path="/support" component={Support}><Support /></Route>
-                <Route path='/checkout' component={TempCheckout}><TempCheckout/></Route>
+              
                 <Route path="/"><About/></Route>
             </Switch>
             

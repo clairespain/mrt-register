@@ -16,7 +16,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Account from './Account';
 import Terms from './Terms';
 import Support from './Support';
-import TempCheckout from './TempCheckout';
+
 
 import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile"
@@ -53,7 +53,7 @@ const App = () => {
             <PrivateRoute path="/account" component={Account} />
             <Route path="/about" component={About} />
             <Route path='/support' component={Support}/>
-            <Route path='/checkout' component={TempCheckout}/>
+            
         </Switch>
       </div>    
       <Footer/>
