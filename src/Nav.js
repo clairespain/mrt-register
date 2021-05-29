@@ -18,7 +18,7 @@ export default function Nav({ handleLogout }) {
                     <Link to='/'><img src={logo} alt="Go Play Logo" /></Link>
 
                     <ul className="nav-links">
-                        <Link style={navStyle} to='/about'><li>About</li></Link>
+                        <Link style={navStyle} to='/about'><li>Home</li></Link>
                         <Link style={navStyle} to='/store'><li>Store</li></Link>
                         {/* <Link style={navStyle} to='/privacy-policy'><li>Privacy Policy</li></Link> */}
                         

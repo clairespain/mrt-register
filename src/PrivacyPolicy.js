@@ -4,6 +4,7 @@ import './App.css'
 export default function PrivacyPolicy() {
     return (
         <div className="page-container-text">
+            <br /><br />
             <h1>Privacy Policy</h1>
             <p>Last updated: April 05, 2021</p>
             <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
