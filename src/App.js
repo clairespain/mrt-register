@@ -41,7 +41,6 @@ const App = () => {
 
   return (
     <div>
-<<<<<<< HEAD
     <Router>
       <AuthProvider>
      <div className='App'>
@@ -63,31 +62,7 @@ const App = () => {
       </AuthProvider>
     </Router>
     </div>  
-=======
-      <Router>
-        <ScrollToTop />
-        <AuthProvider>
-          <div className='App'>
-            <Nav />
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route exact path="/" component={Home} />
-              <Route path="/terms-and-conditions" component={Terms} />
-              <Route path="/forgot-password" component={ForgotPassword} />
-              <Route path="/privacy-policy" component={PrivacyPolicy} />
-              <PrivateRoute path="/store" component={Store} />
-              <PrivateRoute path="/account" component={Account} />
-              <Route path="/about" component={About} />
-              <Route path='/support' component={Support} />
-              <Route path='/checkout' component={TempCheckout} />
-            </Switch>
-          </div>
-          <Footer />
-        </AuthProvider>
-      </Router>
-    </div>
->>>>>>> 1fab7694a9f8febc5f7b2ac665c469ce0a980dde
-  )
-}
+  );
+};
 
 export default App;

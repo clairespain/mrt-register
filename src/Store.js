@@ -3,40 +3,23 @@ import { Form, Button, Card, Alert, ListGroup, ListGroupItem, } from "react-boot
 import { loadStripe } from '@stripe/stripe-js'
 import Stripe from "stripe"
 import GoPlayLogo from "./assets/goplay.png";
-<<<<<<< HEAD
 import firebase from './services/firebase'
 // import function from '.'
- const stripe = Stripe("pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ");
-=======
-//import StripeCheckout from 'react-stripe-checkout'
-import './App.css';
-import PaymentTerminal from './PaymentTerminal'
-import CheckoutForm from './CheckoutForm'
-import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
-import TempCheckout from './TempCheckout';
-import { Link, useHistory } from "react-router-dom"
+ //const stripe = Stripe("pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ");
+ const checkoutButton = document.getElementById('checkout-button')
+ const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout')
+ const stripe = Stripe('pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ')
 
-// const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout');
-//  const stripePromise = loadStripe('pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ');
->>>>>>> 1fab7694a9f8febc5f7b2ac665c469ce0a980dde
+
+ function handleCheckout() {
+    createStripeCheckout()
+    // .then(response => {
+    //   const sessionId = response.data.id
+    //   stripe.redirectToCheckout({ sessionId: sessionId })
+    // })
+ }
 
 export default function Store() {
-    const [status, setStatus] = React.useState("ready");
-
-  if (status === "success") {
-    return <div>Congrats on your empanadas!</div>;
-  }
-
-  const createStripeCheckout = firebase.functions().httpsCallable('createStripeCheckout')
-
-  const handleClick = async (event) => {
-        createStripeCheckout()
-            .then(response => {
-                const sessionId = response.data.id
-                stripe.redirectToCheckout({sessionID: sessionId})
-            })
-    }
-
 
     return (
         <div className="page-container">
@@ -58,17 +41,9 @@ export default function Store() {
             </ListGroup>
             <Card.Body>
                 <br/>
-                {/* <Elements stripe={stripePromise}>
-                    <CheckoutForm
-                        success={() => {
-                        setStatus("success");
-                        }}
-                    />
-                    </Elements> */}
-                
-                <button role="link" onClick={handleClick}>
-                    Checkout
-                </button>
+                <button onClick={handleCheckout}>Checkout</button>
+                 
+               
 
             </Card.Body>
             </Card>
