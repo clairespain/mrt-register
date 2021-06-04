@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { useAuth } from "./services/AuthContext";
+import { db } from "./services/firebase";
 import { CountryDropdown} from 'react-country-region-selector';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { apiInstance } from './../Utils';
@@ -14,6 +16,11 @@ const initialAddressState = {
 }
 
 const PaymentDetails = () => {
+    const { user } = useAuth();
+
+    // db.collection("users").where('email', '==', user.email).update({
+    //     isPremium: true,
+    // })
     const stripe = useStripe();
     const elements = useElements();
     const [billingAddress, setBillingAddress] = useState({ ...initialAddressState });
