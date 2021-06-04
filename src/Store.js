@@ -4,6 +4,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import Stripe from "stripe"
 import GoPlayLogo from "./assets/goplay.png";
 import firebase from './services/firebase'
+import { Link, useHistory } from "react-router-dom";
 // import function from '.'
  //const stripe = Stripe("pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ");
  const checkoutButton = document.getElementById('checkout-button')
@@ -41,7 +42,7 @@ export default function Store() {
             </ListGroup>
             <Card.Body>
                 <br/>
-                <button onClick={handleCheckout}>Checkout</button>
+                <Link to='./payment'><button>Checkout</button></Link>
                  
                
 

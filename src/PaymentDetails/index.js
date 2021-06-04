@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { CountryDropdown} from 'react-country-region-selector';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { apiInstance } from './../Utils';
+import {useAuth} from './../services/AuthContext';
+import { db } from "./../services/firebase";
+import {firebase} from './'
 import './styles.css'
 
 const initialAddressState = {
@@ -13,12 +16,31 @@ const initialAddressState = {
     country: '',
 }
 
+
 const PaymentDetails = () => {
+    const { user} = useAuth();
     const stripe = useStripe();
     const elements = useElements();
     const [billingAddress, setBillingAddress] = useState({ ...initialAddressState });
     const [nameOnCard, setNameOnCard] = useState('');
+    const [userData, setUserData] = useState({});
+    // const [user, setUser] = useState('');
+    const [email, setEmail] = useState(null);
 
+    useEffect(() => {
+        db.collection("users").where('email', '==', user.email).onSnapshot((snapshot) => {
+            if (snapshot == null) {
+                return null;
+            } else {
+                setUserData(snapshot.docs.map((doc) => ({ id: doc.id, user: doc.data() })));
+            }
+        })
+    
+    }, []);
+
+    console.log("<----------User Data --------->")
+    console.log(user);
+    
     const handleBilling = e => {
          const { name, value} = e.target;
          setBillingAddress({

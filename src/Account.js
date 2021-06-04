@@ -31,16 +31,16 @@ const Account = ({ handleLogout }) => {
 
     }, []);
 
-    useEffect(() => {
-       if(userData !== null && userData !== undefined && userData[0].user.name !== undefined){
-           setName(userData[0].user.name);
-           setEmail(user.email);
-           setCreatedAt(userData[0].user.createdAt.toDate());
-           setIsPremium(userData[0].user.isPremium)
-           console.log(isPremium)
-       }
+    // useEffect(() => {
+    //    if(userData !== null && userData !== undefined && userData[0].user.name !== undefined){
+    //        setName(userData[0].user.name);
+    //        setEmail(user.email);
+    //        setCreatedAt(userData[0].user.createdAt.toDate());
+    //        setIsPremium(userData[0].user.isPremium)
+    //        console.log(isPremium)
+    //    }
 
-    }, [userData]);
+    // }, [userData]);
 
     async function handleLogout() {
         setError("")

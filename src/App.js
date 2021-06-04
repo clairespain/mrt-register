@@ -56,7 +56,7 @@ const App = () => {
             <PrivateRoute path="/account" component={Account} />
             <Route path="/about" component={About} />
             <Route path='/support' component={Support}/>
-            <Route path='/payment' component={Payment}/>
+            <PrivateRoute path='/payment' component={Payment}/>
             
         </Switch>
       </div>    
