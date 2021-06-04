@@ -16,6 +16,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Account from './Account';
 import Terms from './Terms';
 import Support from './Support';
+import Payment from './Payment';
 
 
 import ForgotPassword from "./ForgotPassword";
@@ -55,6 +56,7 @@ const App = () => {
             <PrivateRoute path="/account" component={Account} />
             <Route path="/about" component={About} />
             <Route path='/support' component={Support}/>
+            <Route path='/payment' component={Payment}/>
             
         </Switch>
       </div>    

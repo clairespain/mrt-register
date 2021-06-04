@@ -20,6 +20,7 @@ export default function Nav({ handleLogout }) {
                     <ul className="nav-links">
                         <Link style={navStyle} to='/about'><li>Home</li></Link>
                         <Link style={navStyle} to='/store'><li>Store</li></Link>
+                        <Link style={navStyle} to='/payment'><li>Payment</li></Link>
                         {/* <Link style={navStyle} to='/privacy-policy'><li>Privacy Policy</li></Link> */}
                         
                         

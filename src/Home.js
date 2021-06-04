@@ -13,6 +13,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Account from './Account';
 import Login from './Login';
 import Support from './Support';
+import Payment from './Payment'
 
 
 export default function Home() {
@@ -40,6 +41,7 @@ export default function Home() {
              <Switch>
                
                 <Route path="/store" component={Store}><Store /></Route>
+                <Route path="/payment" component={Payment}><Payment /></Route>
                 <Route path="/privacy-policy" component={PrivacyPolicy}><PrivacyPolicy /></Route>
                 <Route path="/account" component={Account}><Account/></Route>
                 <Route path="/about" component={About}><About /></Route>

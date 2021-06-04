@@ -1,0 +1,121 @@
+import React, {useState} from 'react';
+import { CountryDropdown} from 'react-country-region-selector';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { apiInstance } from './../Utils';
+import './styles.css'
+
+const initialAddressState = {
+    line1: '',
+    line2: '',
+    city: '',
+    state: '',
+    postal_code: '',
+    country: '',
+}
+
+const PaymentDetails = () => {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [billingAddress, setBillingAddress] = useState({ ...initialAddressState });
+    const [nameOnCard, setNameOnCard] = useState('');
+
+    const handleBilling = e => {
+         const { name, value} = e.target;
+         setBillingAddress({
+             ...billingAddress, 
+             [name]: value
+         });
+    }
+
+    const handleFormSubmit = async evt => {
+        evt.preventDefault();
+        const cardElement = elements.getElement('card');
+
+        if(
+            !billingAddress.line1 || !billingAddress.city ||
+            !billingAddress.state || !billingAddress.postal_code ||
+            !billingAddress.country || !nameOnCard
+        ) {
+            return;
+        }
+
+        apiInstance.post('/payments/create', {
+            amount: 15 * 100,
+            name: nameOnCard
+        }).then(({ data: clientSecret}) => {
+
+            stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: nameOnCard, 
+                    address: {
+                        ...billingAddress
+                    }
+                }
+            }).then(({ paymentMethod }) =>{
+                stripe.confirmCardPayment(clientSecret, {
+                    payment_method: paymentMethod.id
+                })
+                .then(({ paymentIntent }) => {
+                    console.log(paymentIntent)
+                })
+            })
+        });
+    
+    };
+
+    const configCardElement = {
+        iconStyle: 'solid',
+        style: {
+            base: {
+                fontSize: '16px'
+            }
+        },
+        hidePostalCode: true
+    };
+
+    return(
+        <div className="paymentDetails">
+            <form onSubmit={handleFormSubmit}>
+                <div className="group">
+                    <h2>
+                        Billing Address
+                    </h2>
+                    <input class="form-control form-control-sm m-1" type="text" placeholder="Name on Card" value={nameOnCard} onChange={e => setNameOnCard(e.target.value)} name="nameOnCard" required aria-label=".form-control-sm example"></input>
+                    <input class="form-control form-control-sm m-1" type="text" placeholder="Line 1" value={billingAddress.line1} onChange={e => handleBilling(e)} name="line1" required aria-label=".form-control-sm example"></input>
+                    <input class="form-control form-control-sm m-1" type="text" placeholder="Line 2" value={billingAddress.line2} onChange={e => handleBilling(e)} name="line2" aria-label=".form-control-sm example"></input>
+                    <input class="form-control form-control-sm m-1" type="text" placeholder="City" value={billingAddress.city} onChange={e => handleBilling(e)} name="city" required aria-label=".form-control-sm example"></input>
+                    <input class="form-control form-control-sm m-1" type="text" placeholder="State" value={billingAddress.state} onChange={e => handleBilling(e)} name="state" required aria-label=".form-control-sm example"></input>
+                    <input class="form-control form-control-sm m-1" type="text" placeholder="Postal Code" value={billingAddress.postal_code} onChange={e => handleBilling(e)} name="postal_code" required aria-label=".form-control-sm example"></input>
+                    <div>
+                        <CountryDropdown 
+                        required
+                        class="form-control form-control-sm m-1"
+                        valueType="short"
+                        onChange={val => handleBilling({
+                            target: {
+                                name: 'country',
+                                value: val
+                            }
+                        })}
+                        name="country"
+                        value={billingAddress.country}
+                    /></div>
+                </div>
+                <div className="group">
+                    <h2>
+                        Card Details
+                    </h2>
+                    <CardElement
+                        options={configCardElement}
+                    />
+                </div>
+
+                <button type="submit">Pay Now</button>
+            </form>
+        </div>
+    );
+}
+
+export default PaymentDetails;
