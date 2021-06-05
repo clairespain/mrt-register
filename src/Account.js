@@ -14,9 +14,6 @@ const Account = ({ handleLogout }) => {
     const [createdAt, setCreatedAt] = useState(null);
     const [isPremium, setIsPremium] = useState(false);
 
-    //dummy premium const
-    //const [isPremium, setIsPremium] = useState(false);
-
     const [error, setError] = useState("");
     const history = useHistory();
 

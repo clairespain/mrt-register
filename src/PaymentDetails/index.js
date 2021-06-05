@@ -4,8 +4,12 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { apiInstance } from './../Utils';
 import {useAuth} from './../services/AuthContext';
 import { db } from "./../services/firebase";
-import {firebase} from './'
+// import {useDispatch} from 'react-redux';
 import './styles.css'
+
+
+
+
 
 const initialAddressState = {
     line1: '',
@@ -17,29 +21,45 @@ const initialAddressState = {
 }
 
 
-const PaymentDetails = () => {
-    const { user} = useAuth();
+const PaymentDetails = ({id}) => {
+    const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
+    // const dispatch = useDispatch();
     const [billingAddress, setBillingAddress] = useState({ ...initialAddressState });
     const [nameOnCard, setNameOnCard] = useState('');
-    const [userData, setUserData] = useState({});
-    // const [user, setUser] = useState('');
+    const [userData, setUserData] = useState(null);
     const [email, setEmail] = useState(null);
+    const [userId, setUserId] = useState();
+    let userEmail = user.email;
+
+
+    //  function getId () {
+    //      db.collection("users").where('email', '==', user.email).get().then((doc) => {
+    //         console.log("<----------User Data --------->")
+    //         console.log(doc.id) 
+    //     });
+    // }
 
     useEffect(() => {
-        db.collection("users").where('email', '==', user.email).onSnapshot((snapshot) => {
-            if (snapshot == null) {
-                return null;
-            } else {
-                setUserData(snapshot.docs.map((doc) => ({ id: doc.id, user: doc.data() })));
-            }
-        })
+    db.collection("users").where("email", '==', user.email)
+    .onSnapshot((snapshot)=>{
+        setUserData(snapshot.docs.map((doc)=> ({id:doc.id })));
+        // console.log(users);
+    })
+}, [])
     
-    }, []);
+console.log(userData)
 
-    console.log("<----------User Data --------->")
-    console.log(user);
+    const updatePremium = () => {
+        db.collection("users").doc(id).update({
+            isPremium: true,
+        }).then(()=> {
+            // console.log("Change Premium Success");
+        })
+        
+    }
+
     
     const handleBilling = e => {
          const { name, value} = e.target;
@@ -80,11 +100,17 @@ const PaymentDetails = () => {
                     payment_method: paymentMethod.id
                 })
                 .then(({ paymentIntent }) => {
-                    console.log(paymentIntent)
-                })
+                    
+                    updatePremium();
+                    
+                });
+
+                
+            
             })
         });
-    
+        
+        
     };
 
     const configCardElement = {
