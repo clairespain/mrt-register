@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- const STRIPE_PUBLISHABLE_KEY = 'pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ';
+
+const STRIPE_PUBLISHABLE_KEY = 'pk_live_51IguSVBv0UdVykD4TEbDMRbXQ5ViDoTBvowNSo5Wl7GCLT3UqISmVficR4PDUwovwqFRuMbdzxj2uC4REZuTS4aL00AfQuWPWm';
+//  const STRIPE_PUBLISHABLE_KEY = 'pk_test_51IguSVBv0UdVykD4wPT7mpfU5oiK0rfvDGKB58eSlTfCqxo1ouczdqa7Oe9Fea7yodpPoFyKTPfGKgoTAvoNh4KN00UNeva6wQ';
  let currentUser = {};
  let customerData = {};
  

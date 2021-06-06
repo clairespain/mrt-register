@@ -4,6 +4,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { apiInstance } from './../Utils';
 import {useAuth} from './../services/AuthContext';
 import { db } from "./../services/firebase";
+import { Link, useHistory } from "react-router-dom";
 // import {useDispatch} from 'react-redux';
 import './styles.css'
 
@@ -31,6 +32,7 @@ const PaymentDetails = ({}) => {
     const [userData, setUserData] = useState(null);
     const [email, setEmail] = useState(null);
     const [userId, setUserId] = useState();
+    const history = useHistory();
     let userEmail = user.email;
 
 
@@ -103,6 +105,7 @@ console.log(userData)
                 .then(({ paymentIntent }) => {
                     
                     updatePremium();
+                    history.push("/account")
                     
                 });
 
