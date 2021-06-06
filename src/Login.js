@@ -18,6 +18,16 @@ export default function Login() {
     const history = useHistory()
     const [hasAccount, setHasAccount] = useState(true)
 
+    const [username, setUsername] = useState('');
+    const [user, setUser] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    const [subscribed, setSubscribed] = useState(true);
+
     async function handleSignup(e) {
         e.preventDefault()
     
@@ -28,7 +38,7 @@ export default function Login() {
         try {
           setError("")
           setLoading(true)
-          await signup(emailRef.current.value, passwordRef.current.value)
+          await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value, newsSubscriberRef.current.value)
           history.push("/")
         } catch {
           setError("Failed to create an account")
@@ -76,13 +86,13 @@ export default function Login() {
                             <p>Have an Account? <span onClick={() => setHasAccount(!hasAccount)}>Sign In</span></p>
                             {error && <Alert variant="danger">{error}</Alert>}
                             <br></br>
-                            <input className="textInput" type="text" placeholder="Name" autoFocus required ref={nameRef}  />
+                            <input className="textInput" type="text" placeholder="Name" autoFocus required ref={nameRef}  onChangeText={username => setUsername(username)} />
                             <br></br>
-                            <input className="textInput" type="text" placeholder="Email" autoFocus required ref={emailRef} />
+                            <input className="textInput" type="text" placeholder="Email" autoFocus required ref={emailRef} onChangeText={userEmail => setEmail(userEmail)} />
                              {/* <p className="errorMsg">{emailError}</p> */}
-                            <input className="textInput" type="password" placeholder="Password" required ref={passwordRef} />
+                            <input className="textInput" type="password" placeholder="Password" required ref={passwordRef} onChangeText={userPassword => setPassword(userPassword)}/>
                             {/* <p className="errorMsg">{passwordError}</p> */}
-                            <input className="textInput" type="password" placeholder="Confirm Password" required ref={passwordConfirmRef} />
+                            <input className="textInput" type="password" placeholder="Confirm Password" required ref={passwordConfirmRef} onChangeText={confirmUserPassword => setConfirmPassword(confirmUserPassword)} />
                             
                             {/* <p styles={{float: "left"}}>Please Enter Your Birthday</p>
                                 <div className="birthday_div">
@@ -95,7 +105,7 @@ export default function Login() {
                             <div class="control-group">
                             <label class="control control-checkbox">
                                   Subscribe to our Newsletter
-                                    {/* <input defaultChecked value={subscribed} type="checkbox" onChange={handleChecked} /> */}
+                                    <input defaultChecked value={subscribed} ref={newsSubscriberRef}  type="checkbox" onChange={(e) => setSubscribed(!subscribed)} />
                                 <div class="control_indicator"></div>
                             </label>
                             </div>
@@ -103,6 +113,7 @@ export default function Login() {
                                     <span>Terms & Conditions</span></p>                 
                         </>
                     )}
+
                 </div>
                 <div className="btnContainer">
                     {hasAccount ? (

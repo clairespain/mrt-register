@@ -21,7 +21,7 @@ const initialAddressState = {
 }
 
 
-const PaymentDetails = ({id}) => {
+const PaymentDetails = ({}) => {
     const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
@@ -41,10 +41,11 @@ const PaymentDetails = ({id}) => {
     //     });
     // }
 
+    console.log(user.uid);
+
     useEffect(() => {
-    db.collection("users").where("email", '==', user.email)
-    .onSnapshot((snapshot)=>{
-        setUserData(snapshot.docs.map((doc)=> ({id:doc.id })));
+    db.collection("users").doc(user.uid).onSnapshot((doc)=>{
+        setUserData({id:doc.id, user:doc.data()});
         // console.log(users);
     })
 }, [])
@@ -52,7 +53,7 @@ const PaymentDetails = ({id}) => {
 console.log(userData)
 
     const updatePremium = () => {
-        db.collection("users").doc(id).update({
+        db.collection("users").doc(user.uid).update({
             isPremium: true,
         }).then(()=> {
             // console.log("Change Premium Success");

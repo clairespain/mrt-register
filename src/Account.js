@@ -7,9 +7,9 @@ import { Link, useHistory } from "react-router-dom";
 
 const Account = ({ handleLogout }) => {
     const { user, logout } = useAuth();
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState('');
 
-    const [name, setName] = useState(null);
+    const [name, setName] = useState('');
     const [email, setEmail] = useState(null);
     const [createdAt, setCreatedAt] = useState(null);
     const [isPremium, setIsPremium] = useState(false);
@@ -17,27 +17,24 @@ const Account = ({ handleLogout }) => {
     const [error, setError] = useState("");
     const history = useHistory();
 
-    useEffect(() => {
-        db.collection("users").where('email', '==', user.email).onSnapshot((snapshot) => {
-            if (snapshot == null) {
-                return null;
-            } else {
-                setUserData(snapshot.docs.map((doc) => ({ id: doc.id, user: doc.data() })));
-            }
-        })
-
-    }, []);
-
     // useEffect(() => {
-    //    if(userData !== null && userData !== undefined && userData[0].user.name !== undefined){
-    //        setName(userData[0].user.name);
-    //        setEmail(user.email);
-    //        setCreatedAt(userData[0].user.createdAt.toDate());
-    //        setIsPremium(userData[0].user.isPremium)
-    //        console.log(isPremium)
-    //    }
+    //     try{
+    //     db.collection("users").doc(user.uid).onSnapshot((doc) => { 
+    //     console.log("current data: ", doc.data());
+    //     setUserData({id: doc.id, user: doc.data()});
+    //     console.log(userData.user.name);
+    //     setName(userData.user.name);
+    //     setEmail(user.email);
+    //     setCreatedAt(userData.user.createdAt.toDate());
+    //     setIsPremium(userData.user.isPremium)
+    //     });
+    //     } catch {
+    //         console.log(error);
+    //     }
+        
+    // }, []);
 
-    // }, [userData]);
+
 
     async function handleLogout() {
         setError("")
@@ -109,7 +106,7 @@ const Account = ({ handleLogout }) => {
     return (
         <div className="account">
             <br /><br />
-            <h1>Hi, {name}!</h1>
+            <h1>Hi, {`${name}`}!</h1>
             <br />
             <p><span className="bold">Email:</span> &nbsp; {email}</p>
             <p><span className="bold">Membership:</span> &nbsp; {!isPremium ? (<span>Basic <Link to='/store'><span className="highlight link">&nbsp;Upgrade</span></Link></span>) : (<span>Premium <span className="highlight">&#9733;</span></span>)}</p>
