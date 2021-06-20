@@ -1,41 +1,55 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useAuth } from "./services/AuthContext";
-import { db } from "./services/firebase";
+import { auth, db } from "./services/firebase";
 import { Link, useHistory } from "react-router-dom";
 
 
 
 const Account = ({ handleLogout }) => {
-    const { user, logout } = useAuth();
-    const [userData, setUserData] = useState('');
-
+    const { logout, user } = useAuth();
+    const [userData, setUserData] = useState([]);
     const [name, setName] = useState('');
-    const [email, setEmail] = useState(null);
-    const [createdAt, setCreatedAt] = useState(null);
+    const [email, setEmail] = useState('');
+    const [createdAt, setCreatedAt] = useState('');
     const [isPremium, setIsPremium] = useState(false);
-
+    const [isComplete, setIsComplete] = useState(false);
     const [error, setError] = useState("");
     const history = useHistory();
 
+   
+        // let user_id = auth.currentUser.uid;
+
+        //Bugfix: Data is loaded in about twenty times before its complete. Problem is uid
+        if(userData != null && isComplete == false){
+            db.collection("users").doc(user.uid).get().then((doc) => { 
+                if(doc.exists){
+                    console.log("current data: ", doc.data());
+                        setUserData({id: doc.id, user: doc.data()});
+                        setName(userData.user.name);
+                        setEmail(userData.user.email);
+                        setIsPremium(userData.user.isPremium)
+                        setCreatedAt(userData.user.createdAt.toDate());
+                        setIsComplete(true);
+                } else {
+                    console.log("this broke")
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }
+  
+
+    
     // useEffect(() => {
-    //     try{
-    //     db.collection("users").doc(user.uid).onSnapshot((doc) => { 
-    //     console.log("current data: ", doc.data());
-    //     setUserData({id: doc.id, user: doc.data()});
-    //     console.log(userData.user.name);
-    //     setName(userData.user.name);
-    //     setEmail(user.email);
-    //     setCreatedAt(userData.user.createdAt.toDate());
-    //     setIsPremium(userData.user.isPremium)
-    //     });
-    //     } catch {
-    //         console.log(error);
-    //     }
-        
-    // }, []);
+    //     db.collection("users").doc(user.uid)
+    //     .onSnapshot((snapshot)=>{
+    //         setUserData(snapshot.docs.map((doc)=> ({id:doc.id, users: doc.data() })));
+    //         // console.log(users);
+    //     })
+    // }, [])
 
-
-
+ 
+     
     async function handleLogout() {
         setError("")
 

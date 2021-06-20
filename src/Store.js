@@ -2,7 +2,7 @@ import React, {useEffect, use} from 'react';
 import { Form, Button, Card, Alert, ListGroup, ListGroupItem, } from "react-bootstrap"
 import { loadStripe } from '@stripe/stripe-js'
 import Stripe from "stripe"
-import GoPlayLogo from "./assets/goplay.png";
+import PhantomBrideInsta from "./assets/PhantomBrideInsta.jpeg";
 import firebase from './services/firebase'
 import { Link, useHistory } from "react-router-dom";
 // import function from '.'
@@ -30,7 +30,7 @@ export default function Store() {
             <br/>
             <br/>
             <Card style={{ maxWidth: '25rem', minWidth: '15rem' }}>
-            <Card.Img style={{ maxWidth: '25rem', minWidth: '15rem'}} variant="top" alt="GoPlay Logo" src={GoPlayLogo} />
+            <Card.Img style={{ maxWidth: '25rem', minWidth: '15rem'}} variant="top" alt="Phantom Bride Logo" src={PhantomBrideInsta} />
             <Card.Body>
                 <Card.Title><h2>Phantom Bride</h2></Card.Title>
                 <Card.Text>
@@ -48,6 +48,7 @@ export default function Store() {
 
             </Card.Body>
             </Card>
+            <br/>
           
 
         </div>
