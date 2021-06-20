@@ -3,5 +3,5 @@ import axios from 'axios';
 
 
 export const apiInstance = axios.create({
-    baseURL: 'http://localhost:5001/montana-rep-app/us-central1/api'
+    baseURL: 'https://us-central1-montana-rep-app.cloudfunctions.net/api1'
 });

@@ -102,11 +102,9 @@ console.log(userData)
                 stripe.confirmCardPayment(clientSecret, {
                     payment_method: paymentMethod.id
                 })
-                .then(({ paymentIntent }) => {
-                    
+                .then(({ paymentIntent }) => {     
                     updatePremium();
-                    history.push("/account")
-                    
+                    history.push("/account")       
                 });
 
                 
